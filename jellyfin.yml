@@ -1,0 +1,19 @@
+# name: Jellyfin
+# description: The Free Software Media Server
+# category: media
+# icon: tv
+# version: 10.8.13
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:${JELLYFIN_VERSION:-latest}
+    container_name: jellyfin
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=${TIMEZONE:-UTC}
+    ports:
+      - ${JELLYFIN_PORT:-8096}:8096/tcp
+    volumes:
+      - ${CONFIG_PATH:-./data/jellyfin/config}:/config
+      - ${MEDIA_PATH:-./data/jellyfin/media}:/media
+    restart: unless-stopped

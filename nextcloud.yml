@@ -1,0 +1,31 @@
+# name: Nextcloud
+# description: A safe home for all your data
+# category: office
+# icon: cloud
+# version: 28.0.2
+services:
+  db:
+    image: mariadb:10.6
+    command: --transaction-isolation=READ-COMMITTED --binlog-format=ROW
+    restart: always
+    volumes:
+      - ${DB_PATH:-./data/nextcloud/db}:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD:-rootpass}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-nextcloudpass}
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+  app:
+    image: nextcloud:latest
+    restart: always
+    ports:
+      - ${NEXTCLOUD_PORT:-8080}:80
+    volumes:
+      - ${NEXTCLOUD_PATH:-./data/nextcloud/html}:/var/www/html
+    environment:
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD:-nextcloudpass}
+      - MYSQL_DATABASE=nextcloud
+      - MYSQL_USER=nextcloud
+      - MYSQL_HOST=db
+    depends_on:
+      - db
