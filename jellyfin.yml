@@ -1,6 +1,6 @@
 # name: Jellyfin
 # description: The Free Software Media Server
-# category: media
+# category: Media
 # icon: tv
 # version: 10.8.13
 services:
