@@ -2,7 +2,7 @@
 # description: Expose local ports securely to the internet without opening ports or managing certificates.
 # category: Network
 # icon: cloud
-# version: 2024.4.1
+# version: 2026.5.2
 services:
   cloudflare-tunnel:
     image: cloudflare/cloudflared:latest
