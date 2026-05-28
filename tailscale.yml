@@ -10,6 +10,7 @@ services:
     volumes:
       - ${TAILSCALE_STATE_PATH:-./data/tailscale/state}:/var/lib/tailscale
       - /dev/net/tun:/dev/net/tun
+      - /var/run/tailscale:/var/run/tailscale
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
