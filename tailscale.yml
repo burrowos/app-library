@@ -1,0 +1,16 @@
+# name: Tailscale
+# description: The private WireGuard VPN mesh network that connects all your devices.
+# category: Network
+# icon: settings_ethernet
+# version: 1.66.0
+services:
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: tailscale
+    volumes:
+      - ${TAILSCALE_STATE_PATH:-./data/tailscale/state}:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    restart: unless-stopped
